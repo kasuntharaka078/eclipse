@@ -1,0 +1,675 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+package test01;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class first_test01 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		
+		//load the chromedriver
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+	  
+		//navigate the page (registration interface page)
+		driver.navigate().to("file:///C:/Users/AMILA/Desktop/registration.html");
+	
+		//maximize the registration page
+		driver.manage().window().maximize();
+	
+		//first name
+		driver.findElement(By.name("fn")).sendKeys("Rohan");
+	
+		//last name
+		driver.findElement(By.id("fn2")).sendKeys("Aranvinth");
+	
+		//password
+		driver.findElement(By.name("pass1")).sendKeys("0123456789");
+	
+		//re-enter password
+		driver.findElement(By.name("pass2")).sendKeys("0123456789");
+	
+		//email
+		driver.findElement(By.id("email")).sendKeys("testdata@gmail.com");
+	
+		//mobile number
+		driver.findElement(By.name("mobile")).sendKeys("0717953991");
+	
+		//description- address
+		driver.findElement(By.id("description")).sendKeys("Kandy");
+	
+		//gender
+		WebElement radio1 = driver.findElement(By.id("male"));
+		radio1.click();
+	
+		//hobbies
+		WebElement option1 = driver.findElement(By.className("automation2"));
+		option1.click();
+	
+		WebElement option2 = driver.findElement(By.className("automation3"));
+		option2.click();
+	
+	
+	
+		//if condition
+	
+		if(option1.isSelected() && option2.isSelected()) 
+		{
+			System.out.println("checkbox is Toggled on: hobby2");
+			System.out.println("checkbox is Toggled on: hobby3");
+		}
+		else {
+			System.out.println("checkbox is Empty!");
+		}
+	
+	
+		//select a country
+		driver.findElement(By.id("country")).sendKeys("Sri Lanka");
+	
+	
+	
+		driver.manage().timeouts().implicitlyWait(50, TimeUnit.SECONDS);
+	
+	
+	
+		//driver.quit();
+		//driver.close();
+	}
+	
+
+}
+====================================
+package employee_admin;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class admin_login {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		//load the chrome driver
+		System.setProperty("webdriver.chrome.driver", "chromedriver_admin.exe");
+		WebDriver driver = new ChromeDriver();
+		
+		//navigate the page (login interface page)
+		driver.navigate().to("http://localhost/employee/admin/index.php");
+
+		//maximize the window
+		driver.manage().window().maximize();
+		
+		//pass the value for username
+		//driver.findElement(By.name("username")).sendKeys("admin");
+		
+		//pass the value for password
+		//driver.findElement(By.name("password")).sendKeys("admin123");
+		
+
+        //input to the text box for username
+		WebElement getTitle1 = driver.findElement(By.xpath("//input[@name='username']"));
+		getTitle1.sendKeys("admin");
+		
+		
+		//input to the text box for password
+		WebElement getTitle2 = driver.findElement(By.xpath("//input[@name='password']"));
+		getTitle2.sendKeys("admin123");
+		
+		//validate the username ...
+		if(getTitle1.getAttribute("value").isEmpty())
+		{
+			System.out.println("Username is Empty");
+		}
+		
+		 //validate the password ...
+		else if(getTitle2.getAttribute("value").isEmpty())
+		{
+		   System.out.println("Password is Empty");
+		}				
+		else 
+		{
+			//submit action for login button
+			driver.findElement(By.xpath("//button[contains(text(),'Login ')]")).click();
+		
+			//click submenu - employee submenu
+			driver.findElement(By.xpath("//*[contains(@id,'Employee')]")).click();
+			
+		    //check the Url for employee sub menu page
+			String actualUrl = "http://localhost/employee/admin/employee.php";
+			String expecteUrl = driver.getCurrentUrl();
+			
+			if(actualUrl.equalsIgnoreCase(expecteUrl))
+		
+			{
+				//success message for going employee of  element of submenu
+				//System.out.println("Test Passed");
+			    
+				//search something in the searching bar (search box)
+				driver.findElement(By.xpath("//*[@id=\"table_filter\"]/label/input")).sendKeys("pa");
+			
+			
+			}
+			
+			else 
+			{
+				System.out.println("Test Failed");
+			}
+			
+		}			
+		
+		//submit action for cancel button
+		//driver.findElement(By.xpath("//button[contains(text(),'Cancel')]")).click();
+						
+	}
+}
+=============================================
+package employee_admin1;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class user_admin {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		//load the chromedriver
+		System.setProperty("webdriver.chrome.driver", "chromedriver.exe");
+		WebDriver driver = new ChromeDriver();
+		
+		//navigate the page
+		driver.navigate().to("http://localhost/employee/admin/");
+		
+		//maximize the window
+		driver.manage().window().maximize();
+	
+		//pass username
+   		WebElement getname = driver.findElement(By.name("username"));
+   		getname.sendKeys("admin");
+		
+   		//pass password
+   		WebElement getpass = driver.findElement(By.name("password"));
+   		getpass.sendKeys("admin123");
+
+       	//validation for username
+		if(getname.getAttribute("value").isEmpty()) 
+		{
+			System.out.println("username is empty");
+		}
+		
+		//validation for password
+		else if(getpass.getAttribute("value").isEmpty()) 
+		{
+			System.out.println("password is empty");
+		}
+		
+		else {
+			//login button
+			driver.findElement(By.xpath("//button[contains(text(),'Login ')]")).click();
+			
+			// sub menu ( users sub menu )
+			driver.findElement(By.xpath("/html/body/div[1]/div[4]/a")).click();
+			
+			
+			// check the URL = USER PAGE
+			
+			String actualUrl = "http://localhost/employee/admin/users.php";
+			String expecteUrl = driver.getCurrentUrl();
+			
+			if(actualUrl.equalsIgnoreCase(expecteUrl)) 
+			{
+				
+				System.out.println("Test is passed");
+				
+       			// search something | search bar				
+       			driver.findElement(By.xpath("/html/body/div[2]/div[4]/div/div[2]/label/input")).sendKeys("Sa");
+		
+        		//display page title
+        		System.out.println("Page Title is : " + driver.getTitle());
+			
+          
+      			// click add new button to add new user
+        		driver.findElement(By.xpath("/html/body/div[2]/div[4]/button")).click();
+          
+       			// time limit
+        		driver.manage().timeouts().implicitlyWait(100, TimeUnit.SECONDS);
+        
+        
+       			// filling form
+                
+        		//pass username
+        		WebElement getname1 = driver.findElement(By.name("username"));
+        		getname1.sendKeys("amila");
+     		
+       			//pass password
+        		WebElement getpass1 = driver.findElement(By.name("password"));
+        		getpass1.sendKeys("amila567");
+        
+       			//pass firstname
+        		WebElement getfirst = driver.findElement(By.name("firstname"));
+        		getfirst.sendKeys("amila");
+     		
+       	 		//pass lastname
+        		WebElement getlast = driver.findElement(By.name("lastname"));
+        		getlast.sendKeys("bandara");
+        
+        
+        		//validation | username
+        		if(getname1.getAttribute("value").isEmpty()) {
+        	
+        			System.out.println("Username is empty");
+        		}        
+        
+      			//validation | password
+       		 	else if(getpass1.getAttribute("value").isEmpty()) {
+        	
+        			System.out.println("Password is empty");
+        		}
+        
+      			//validation | firstname
+        		else if(getfirst.getAttribute("value").isEmpty()) {
+        	
+        			System.out.println("firstname is empty");
+        		}
+        
+      			//validation | lastname
+        		else if(getlast.getAttribute("value").isEmpty()) {
+        	
+        			System.out.println("lastname is empty");
+        		}
+        
+        		// save button | save data
+        		else 
+        		{
+        			driver.findElement(By.xpath("/html/body/div[3]/div/div/form/div[2]/button")).click();
+        	
+        	
+        			// close alert msg        	
+        			try {
+        				WebDriverWait wait = new WebDriverWait(driver,2);
+        				wait.until(ExpectedConditions.alertIsPresent());
+        				Alert alert = driver.switchTo().alert();
+        				System.out.println(alert.getText());
+        		
+        				//the alert | Data successfully saved
+        				if(alert.getText().contains("Data successfully saved.")) 
+        				{
+        					Thread.sleep(5000); // for holding alert msg for few minutes
+        					alert.accept();
+        					throw new Exception(alert.getText());
+        				}
+        		
+        				// the alert | Username already exist
+        				else if(alert.getText().contains("Username already exist")) 
+        				{
+        					Thread.sleep(5000); // for holding alert msg for few minutes
+        					alert.accept();
+        			
+        					// close the filling form 
+        					driver.findElement(By.xpath("/html/body/div[3]/div/div/div/button")).click();
+        			
+        					throw new Exception(alert.getText());
+        			        			
+        				}
+        		
+        				else {
+        					throw new Exception("Loading Error!");
+        				}   		
+        		      	
+        	
+        			}
+        	
+        			catch(Exception e) {
+        		
+        				// exception handling
+        			}
+        	   
+        
+				}
+			
+			}
+				
+			
+			else 
+			{
+				System.out.println("Test is failed");
+			}
+						
+			
+			
+		}
+		
+		
+		
+	}
+
+}
+	
+
+======================================
+package employee_admin1;
+
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class delete_user {
+
+	public static void main(String[] args) {
+		
+		//TODO Auto-generated method stub
+
+		//load the chromedriver
+		System.setProperty(webdriver.chrome.driver, chromedriver.exe);
+		WebDriver driver = new ChromeDriver();
+						
+		//navigate the page
+		driver.navigate().to(httplocalhostemployeeadmin);
+						
+		//maximize the window
+		driver.manage().window().maximize();
+					
+		//pass username
+		WebElement getname = driver.findElement(By.name(username));
+		getname.sendKeys(admin);
+					
+		//pass password
+		WebElement getpass = driver.findElement(By.name(password));
+		getpass.sendKeys(admin123);
+			   
+		//login button
+		driver.findElement(By.xpath(button[contains(text(),'Login ')])).click();
+				
+		//sub menu ( users sub menu )
+		driver.findElement(By.xpath(htmlbodydiv[1]div[4]a)).click();
+				
+		//click the delete button  delete row
+		driver.findElement(By.xpath(htmlbodydiv[2]div[4]divtabletbodytr[2]td[4]centerbutton[2])).click();
+				
+		//close alert msg - 1st alert msg
+				
+		try
+		{
+					
+			Alert alert = driver.switchTo().alert();
+			System.out.println(alert.getText());
+					
+			Are you sure to delete this data 
+					
+			if(alert.getText().contains(Are you sure to delete this data ))
+			{
+						
+				Thread.sleep(5000);  for hold the alert msg for few minutes
+				alert.accept();
+						
+						
+				//close alert msg - 2nd alert msg
+				try
+				{
+					WebDriverWait wait = new WebDriverWait(driver,2);
+					wait.until(ExpectedConditions.alertIsPresent());
+							
+					System.out.println(alert.getText());
+					alert.accept();
+												
+				}
+						
+				catch(Exception e)
+				{
+					//exception handling
+							
+				}
+										
+						
+			}  //close if condition
+					
+								
+		} //close 1st try
+				
+		catch(Exception e)
+		{
+			//exception handling
+					
+		}
+		
+
+	}
+
+}
+
+==================================
+package testngex01;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertNotEquals;
+import static org.testng.Assert.assertTrue;
+import org.testng.annotations.Test;
+
+public class AssertionsInTestNG {
+    
+	@Test
+	public void test() { 
+    	
+		assertTrue(true); // passed
+		
+	}
+	
+	@Test
+	public void test1() { 
+    	
+		assertTrue(false); // failed
+		
+	}
+	
+	@Test
+	public void test2() { 
+    	
+		assertEquals("Test","Test"); // passed
+		
+	}
+	
+	@Test
+	public void test3() { 
+    	
+		assertEquals("Test","Test1"); // failed
+		
+	}
+	
+	@Test
+	public void test4() { 
+    	
+		assertFalse(false,"This is expected"); // passed
+		
+		
+	}
+	
+	@Test
+	public void test5() { 
+    	
+		assertTrue(false,"not matching the expected condition"); // failed
+				
+	}
+	
+	@Test
+	public void test6() { 
+    	
+		assertNotEquals("Test","Test1"); // passed
+				
+	}
+	
+	
+}
+==============================================
+package testngex01;
+
+import static org.testng.Assert.assertTrue;
+
+import org.testng.annotations.Test;
+
+public class Dependents_on_Method {
+	
+	@Test
+	public void test1() {
+	
+		assertTrue(true); // passed
+	}
+	
+	@Test(dependsOnMethods = {"test1"}) // depend on one method
+	public void test2() {
+	
+		System.out.println("Test2 is passed"); // test2 is passed ( depend on test1)
+		
+	}
+	
+	@Test(dependsOnMethods = {"test1","test2"})// depend on two methods
+	public void test3() {
+	
+		System.out.println("Test3 is passed"); // test3 is passed ( depend on test1 and test2)
+		
+	}
+	
+	@Test
+	public void test4() {
+	
+		assertTrue(false); // failed
+	}
+	
+	@Test(dependsOnMethods = {"test4"}) // depend on one method
+	public void test5() {
+	
+		System.out.println("Test5 is skipped"); // test5 is skipped ( depend on test4)
+		// test4 is failed
+	}
+	
+	@Test(dependsOnMethods = {"test3","test4"})// depend on two methods
+	public void test6() {
+	
+		System.out.println("Test6"); // test6 is skipped ( depend on test3 and test4. test4 is failed)
+		
+	}
+		
+
+}
+========================================
+package testngex01;
+
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+public class DataProviderInTestNG {
+
+	@DataProvider
+	public Object [][] testData(){
+		
+		Object [][] data = new Object [2][2]; // 2D object 
+		
+		data[0][0] = "test1";
+		data[0][1] = "test2";		
+		data[1][0] = "test3";
+		data[1][1] = "test4";
+		
+		return data;
+	}	
+	
+	@Test(dataProvider = "testData")
+	public void test(String s1, String s2) {
+		
+		System.out.println("S1"+" "+s1+"S2"+" "+s2);
+	}
+	
+}
+===================================
+package testngex01;
+
+import org.testng.annotations.Test;
+
+public class PriorityTestNG {
+
+	@Test(priority = 2)
+	public void test1() 
+	{
+		
+	}
+	
+	@Test(priority = 1)
+	public void test2() 
+	{
+		
+	}
+	
+	@Test(priority = 0)
+	public void test3() 
+	{
+		
+	}
+		
+}
+=======================================
